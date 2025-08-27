@@ -5,10 +5,19 @@
 source ~/.local/share/omarchy/default/bash/rc
 
 # Helper functions
+
+# Connect to WPE with specific key
+# ssh-shoreline-wpe install-name ~/.ssh/keyfile
 ssh-shoreline-wpe() {
   local install=$1
 
-  ssh -i ~/.ssh/shoreline "$install@$install.ssh.wpengine.net"
+  if [[ -n $2 ]]; then
+    identity_file=$2
+  else
+    identity_file="~/.ssh/shoreline"
+  fi
+
+  ssh -i $identity_file "$install@$install.ssh.wpengine.net"
 }
 
 # Aliases
