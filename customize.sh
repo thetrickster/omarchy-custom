@@ -6,10 +6,13 @@ set -eE
 # Get current directory
 current_dir=$(pwd)
 
+# Set backup dir
+backup_dir="$current_dir/.dotfiles-backup"
+
 install_applications() {
     sudo pacman -S --noconfirm --needed \
         visual-studio-code-bin \
-        stow
+        rsync
 }
 
 install_vscode_extensions() {
@@ -27,7 +30,7 @@ install_vscode_extensions() {
 }
 
 # Update Omarchy
-omarchy-update
+#omarchy-update
 
 # Show Shoreline logo
 ansi_art='
@@ -49,5 +52,15 @@ install_vscode_extensions
 
 # TODO: Setup additional hotkeys by appending to config in `~/.config/hypr/bindings.conf`
 
-# Customize ~/.bashrc by stowing with GNU Stow
-stow -t $HOME -S bash
+# Make backup folder if none exists
+mkdir -p $backup_dir
+
+# Sync dotfiles to $HOME directory via rsync and backup
+echo "Syncing dotfiles to $HOME and backing up to $backup_dir"
+
+rsync -avz --backup --backup-dir="$backup_dir/" "$current_dir/dotfiles/" "$HOME/"
+
+# Restart hyprland
+echo "Restarting Hyprland"
+sleep 5
+uwsm stop
