@@ -29,9 +29,6 @@ install_vscode_extensions() {
     done
 }
 
-# Update Omarchy
-#omarchy-update
-
 # Show Shoreline logo
 ansi_art='
 \e[90m███████ \e[92m██   ██ \e[35m ██████  \e[91m██████  \e[34m███████ \e[95m██      \e[94m██ \e[90m███    ██ \e[94m███████\e[0m 
