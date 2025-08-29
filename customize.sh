@@ -4,60 +4,26 @@
 set -eE
 
 # Get current directory
-current_dir=$(pwd)
+DIR=$(pwd)
 
-# Set backup dir
-backup_dir="$current_dir/.dotfiles-backup"
+# Splash screen
+source "$DIR/bash/splash.sh"
 
-install_applications() {
-    sudo pacman -S --noconfirm --needed \
-        visual-studio-code-bin \
-        rsync
-}
-
-install_vscode_extensions() {
-    echo "Installing VS Code extensions for PHP Web Development"
-    code_extensions=(\
-        "bmewburn.vscode-intelephense-client" \
-        "editorconfig.editorconfig" \
-        "mjmlio.vscode-mjml" \
-        "wordpresstoolbox.wordpress-toolbox" \
-    )
-
-    for extension in "${code_extensions[@]}"; do
-        code --install-extension "$extension" --force
-    done
-}
-
-# Show Shoreline logo
-ansi_art='
-\e[90m███████ \e[92m██   ██ \e[35m ██████  \e[91m██████  \e[34m███████ \e[95m██      \e[94m██ \e[90m███    ██ \e[94m███████\e[0m 
-\e[90m██      \e[92m██   ██ \e[35m██    ██ \e[91m██   ██ \e[34m██      \e[95m██      \e[94m██ \e[90m████   ██ \e[94m██      \e[0m
-\e[90m███████ \e[92m███████ \e[35m██    ██ \e[91m██████  \e[34m█████   \e[95m██      \e[94m██ \e[90m██ ██  ██ \e[94m█████ \e[0m
-\e[90m     ██ \e[92m██   ██ \e[35m██    ██ \e[91m██   ██ \e[34m██      \e[95m██      \e[94m██ \e[90m██  ██ ██ \e[94m██    \e[0m
-\e[90m███████ \e[92m██   ██ \e[35m ██████  \e[91m██   ██ \e[34m███████ \e[95m███████ \e[94m██ \e[90m██   ████ \e[94m███████\e[0m 
-'
-
-clear
-echo -e "\n$ansi_art\n"
+# Bash Functions
+source "$DIR/bash/functions.sh"
 
 # Install Applications
-install_applications
+source "$DIR/bash/install-packages.sh"
 
 # Install VS Code dev extensions
-install_vscode_extensions
+source "$DIR/bash/install-vscode-extensions.sh"
 
-# TODO: Setup additional hotkeys by appending to config in `~/.config/hypr/bindings.conf`
-
-# Make backup folder if none exists
-mkdir -p $backup_dir
-
-# Sync dotfiles to $HOME directory via rsync and backup
-echo "Syncing dotfiles to $HOME and backing up to $backup_dir"
-
-rsync -avz --backup --backup-dir="$backup_dir/" "$current_dir/dotfiles/" "$HOME/"
+# Sync and backup config dotfiles
+source "$DIR/bash/sync-and-backup-dotfiles.sh"
 
 # Restart hyprland
-echo "Restarting Hyprland"
-sleep 5
-uwsm stop
+if prompt_yn "Restart Hyprland?" 5 "y"; then
+    echo "Restarting Hyprland"
+    sleep 5
+    uwsm stop
+fi
