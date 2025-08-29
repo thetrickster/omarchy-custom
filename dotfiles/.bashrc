@@ -21,6 +21,7 @@ ssh-shoreline-wpe() {
 }
 
 # Aliases
+alias omarchy-custom='(cd ~/.omarchy-custom && bash ./customize.sh)'
 alias vi='nvim'
 
 # Add your own exports, aliases, and functions here.
