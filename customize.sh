@@ -4,7 +4,7 @@
 set -eE
 
 # Get current directory
-DIR=$(pwd)
+DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 # Splash screen
 source "$DIR/bash/splash.sh"
