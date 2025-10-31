@@ -1,6 +1,10 @@
 sudo pacman -S --noconfirm --needed \
     visual-studio-code-bin \
-    wlrobs-hg \
     rsync \
     gimp \
-    inkscape
+    inkscape \
+    freerdp \
+    remmina \
+    stow \ 
+    jq \
+    tmux \
