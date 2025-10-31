@@ -5,7 +5,7 @@ sudo pacman -S --noconfirm --needed \
     inkscape \
     freerdp \
     remmina \
-    stow \ 
+    stow \
     jq \
     tmux \
-    cbonsai \
+    cbonsai
