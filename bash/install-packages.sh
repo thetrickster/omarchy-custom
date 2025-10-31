@@ -1,3 +1,4 @@
+# Install regular pacakages with pacman
 sudo pacman -S --noconfirm --needed \
     visual-studio-code-bin \
     rsync \
@@ -7,5 +8,8 @@ sudo pacman -S --noconfirm --needed \
     remmina \
     stow \
     jq \
-    tmux \
+    tmux
+
+# Install Arch User Repository packages with yay
+yay -S --noconfirm \
     cbonsai
