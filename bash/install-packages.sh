@@ -8,3 +8,4 @@ sudo pacman -S --noconfirm --needed \
     stow \ 
     jq \
     tmux \
+    cbonsai \
